@@ -1,0 +1,68 @@
+{
+  "name": "defcompvesting",
+  "version": "1.0.0",
+  "description": "A simple CAP project.",
+  "repository": "<Add your repository here>",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@sap/cds": ">=5",
+    "@sap/cds-odata-v2-adapter-proxy": "^1.9.4",
+    "express": "^4",
+    "hdb": "^0.19.0"
+  },
+  "devDependencies": {
+    "@sap/eslint-plugin-ui5-jsdocs": "^2.0.5",
+    "@sap/ux-specification": "^1.102.4",
+    "@sapui5/ts-types": "^1.92.2",
+    "eslint": "^7.32.0",
+    "sqlite3": "^5.0.4",
+    "rimraf": "^3.0.2"
+  },
+  "scripts": {
+    "start": "cds run",
+    "build": "rimraf resources mta_archives && mbt build --mtar archive",
+    "deploy": "cf deploy mta_archives/archive.mtar --retries 1",
+    "deploy:ui": "cf deploy mta_archives/archive.mtar -m defcompvesting_ui_deployer",
+    "watch-ui": "cds watch --open ui/webapp/index.html?sap-ui-xx-viewCache=false",
+    "undeploy": "cf undeploy defcompvesting --delete-services --delete-service-keys --delete-service-brokers"
+  },
+  "engines": {
+    "node": "^16.15"
+  },
+  "eslintConfig": {
+    "extends": "eslint:recommended",
+    "env": {
+      "es2020": true,
+      "node": true,
+      "jest": true,
+      "mocha": true
+    },
+    "globals": {
+      "SELECT": true,
+      "INSERT": true,
+      "UPDATE": true,
+      "DELETE": true,
+      "CREATE": true,
+      "DROP": true,
+      "CDL": true,
+      "CQL": true,
+      "CXL": true,
+      "cds": true
+    },
+    "rules": {
+      "no-console": "off",
+      "require-atomic-updates": "off"
+    }
+  },
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "hana-cloud"
+      }
+    }
+  },
+  "sapux": [
+    "app/ui"
+  ]
+}

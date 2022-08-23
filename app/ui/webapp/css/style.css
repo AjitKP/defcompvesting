@@ -1,0 +1,40 @@
+/* Enter your custom styles here */
+.custompage .sapFDynamicPageHeader{
+    background: linear-gradient(to right, #BE66A3, #06B7ED)!important;
+}
+
+.custompage .sapFDynamicPageHeader,
+.masshirepage2 .sapFDynamicPageTitle,
+.detailpage .sapFDynamicPageTitle,
+.masshirepage2 .sapFDynamicPageTitle:hover,
+.detailpage .sapFDynamicPageTitle:hover,
+.custompage .sapFDynamicPageTitleClickEnabled.sapFDynamicPageTitleForceHovered .sapFDynamicPageTitle {
+    /*background: #1919d1 !important;*/
+    background: linear-gradient(to right, #BE66A3, #06B7ED)!important;
+}
+.whiteTxt,
+.whiteTxt .sapMBtnText,
+.whiteTxt .sapMBtnIcon{
+    color: #fff !important;
+}
+
+.fileUploadBarCls {
+    background-color: transparent !important;
+    box-shadow: inset 0 0rem #d9d9d9 !important;
+    height: 2rem !important;    
+}
+
+.VerticalMargin{
+    margin: 10px 0px !important;
+}
+
+.detailBarCls {
+	height:2rem!important;
+}
+.fileUploadBarCls .sapMBarRight {
+	height:2rem;
+}
+
+.custompage .sapFDynamicPageTitle {
+    display: none;
+}

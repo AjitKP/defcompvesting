@@ -1,0 +1,102 @@
+<c:FragmentDefinition xmlns="sap.m" xmlns:c="sap.ui.core" xmlns:l="sap.ui.layout.form" xmlns:f="sap.ui.layout">
+
+    <Dialog id="idCreateMainDialog" class="sapUiSizeCompact VerticalMargin" contentHeight="200px" contentWidth="500px" draggable="true" escapeHandler="" icon="sap-icon://create" state="Success" title="Create an Entry">
+        <beginButton>
+            <!--sap.m.Button-->
+            <Button id="idActionConfirm" type="Accept" press=".onPopUpConfirm" />
+        </beginButton>
+        <buttons>
+            <!--sap.m.Button-->
+        </buttons>
+        <content>
+            <!--sap.ui.core.Control-->
+            <!-- <VBox alignContent="Stretch" alignItems="Stretch" backgroundDesign="Transparent" direction="Row" justifyContent="Start" renderType="Div"> -->
+
+            <l:Form editable="true" width="100%">
+                <l:formContainers>
+                    <!--sap.ui.layout.form.FormContainer-->
+                    <l:FormContainer>
+                        <l:formElements>
+                            <!--sap.ui.layout.form.FormElement-->
+                            <l:FormElement >
+                                <l:fields>
+                                    <Input id="idInputGUID" class="VerticalMargin" required="true" editable="false" value="" visible="false">
+                                        <layoutData>
+                                            <f:GridData span="XL1 L2 M4 S6" />
+                                        </layoutData>
+                                    </Input>
+                                </l:fields>
+                                <l:label>
+                                    <Label id="idLabelFUID" class="VerticalMargin" required="true" text="GUID"  visible="false"></Label>
+                                </l:label>
+                            </l:FormElement>                              
+                            <l:FormElement >
+                                <l:fields>
+                                    <Select id="idSelectRoleCode" class="VerticalMargin" forceSelection="true" items="{sfEmpRole>/EmpRoles}">
+                                        <c:Item key="{sfEmpRole>externalCode}" text="{sfEmpRole>name_localized}" />
+                                        <layoutData>
+                                            <f:GridData span="XL1 L2 M4 S6" />
+                                        </layoutData>                                    
+                                    </Select>  
+                                </l:fields>
+                                <l:label>
+                                    <Label id="idLabelRoleCode" class="VerticalMargin" required="true" text="Employee Role"></Label>
+                                </l:label>
+                            </l:FormElement>
+                            <l:FormElement >
+                                <l:fields>
+                                    <Select id="idSelectRating" class="VerticalMargin" forceSelection="true" selectedKey="3">
+                                        <c:Item key="1" text="Unacceptable" />
+                                        <c:Item key="2" text="Needs Improvement" />
+                                        <c:Item key="3" text="Meets Expectations" />
+                                        <c:Item key="4" text="Exceeds Expectations" />
+                                        <c:Item key="5" text="Outstanding" />
+                                        <layoutData>
+                                            <f:GridData span="XL1 L2 M4 S6" />
+                                        </layoutData>                                    
+                                    </Select>  
+                                </l:fields>
+                                <l:label>
+                                    <Label id="idLabelRating" class="VerticalMargin" required="true" text="Performance Rating"></Label>
+                                </l:label>
+                            </l:FormElement>    
+                            <l:FormElement >
+                                <l:fields>
+                                    <Input id="idInputPayPercent" class="VerticalMargin" required="true" value="">
+                                        <layoutData>
+                                            <f:GridData span="XL1 L2 M4 S6" />
+                                        </layoutData>
+                                    </Input>
+                                </l:fields>
+                                <l:label>
+                                    <Label id="idLabelPayPercent" class="VerticalMargin" required="true" text="Payment Percentage"></Label>
+                                </l:label>
+                            </l:FormElement>                                                      
+                        </l:formElements>
+
+                    </l:FormContainer>
+                </l:formContainers>
+                <l:layout>
+                    <l:ResponsiveGridLayout labelSpanXL="12" labelSpanL="12" labelSpanM="4" labelSpanS="4" emptySpanXL="4" emptySpanL="4" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="6" columnsM="6" singleContainerFullSize="true" />
+                </l:layout>
+                <l:title>
+                    <!--sap.ui.core.Title-->
+                </l:title>
+                <l:toolbar>
+                    <!--sap.ui.core.Toolbar-->
+                </l:toolbar>
+            </l:Form>
+
+        </content>
+        <customHeader>
+            <!--sap.m.IBar-->
+        </customHeader>
+        <endButton>
+            <Button icon="sap-icon://create" text="{i18n>actionCancel}" type="Reject" press=".onPopUpCancel" />
+        </endButton>
+        <subHeader>
+            <!--sap.m.IBar-->
+        </subHeader>
+
+    </Dialog>
+</c:FragmentDefinition>

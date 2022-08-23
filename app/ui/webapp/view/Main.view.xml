@@ -1,0 +1,86 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:semantic="sap.f.semantic" xmlns:c="sap.ui.core"	xmlns:tnt="sap.tnt" controllerName="defcomp.vesting.ui.controller.Main" >
+	<semantic:SemanticPage id="mySemanticPage" headerPinnable="false" toggleHeaderOnTitleClick="false" preserveHeaderStateOnScroll="true"
+		showFooter="true" class="sapUiResponsivePadding custompage">
+		<semantic:headerContent >
+			<Bar class="fileUploadBarCls" id="idHeaderBar"> 
+				<contentLeft>
+					<Image src="./css/sap_icon.png" width="5%"></Image>
+                    <Title text="{i18n>title}" class="whiteTxt" titleStyle="H3"/>
+				</contentLeft>
+				<contentMiddle>
+                </contentMiddle>
+				<contentRight>
+                    <!-- <SegmentedButton id="idSBOption" selectedKey="NEW" selectionChange="onSBOptionChange">
+                        <items>
+                            <SegmentedButtonItem text="New Hiring" width="150px" key="NEW" />
+                            <SegmentedButtonItem text="Previous Uploads" width="150px" key="OLD"/>
+                        </items>
+                    </SegmentedButton> -->
+				</contentRight>
+			</Bar>
+		</semantic:headerContent>
+		<semantic:content>
+        <VBox>
+						<Table id="idVLTable" noDataText="{i18n>noProducts}" class="sapUiSizeCompact" items="{/VestingDetails}" mode="SingleSelectLeft">
+							<columns>
+								<!--sap.m.Column-->
+								<Column visible="false">
+									<Text text="GUID"/>
+								</Column>                                   
+								<Column>
+									<Text text="Role Id"/>
+								</Column>                                
+								<Column>
+									<Text text="Role"/>
+								</Column>
+								<Column>
+									<Text text="Rating"/>
+								</Column>
+								<Column>
+									<Text text="Payment Percentage"/>
+								</Column>
+							</columns>
+							<contextMenu>
+								<!--sap.ui.core.IContextMenu-->
+							</contextMenu>
+							<headerToolbar>
+								<!--sap.m.Toolbar-->
+                                <ToolbarSpacer/>
+								<Toolbar>
+									<content>
+										<Button icon="sap-icon://add" text="{i18n>actionCreate}" type="Accept" press=".onCreateEntry" />
+										<Button icon="sap-icon://edit" text="{i18n>actionUpdate}" type="Ghost" press=".onUpdateEntry" />
+										<Button icon="sap-icon://delete" text="{i18n>actionDelete}" type="Reject" press=".onDeleteEntry" />
+									</content>
+								</Toolbar>
+							</headerToolbar>
+							<items>
+								<!--sap.m.ListItemBase-->
+								<ColumnListItem vAlign="Inherit" highlight="None" selected="false" type="Inactive">
+									<cells>
+										<!--sap.ui.core.Control-->										
+                                        <Text text="{ID}" visible="false"></Text>
+										<Text text="{rolecode}"></Text>
+                                        <Text text="{rolename}"></Text>
+                                        <RatingIndicator editable="false" maxValue="5" value="{perfrating}" iconSize="16px" tooltip="{path:'perfrating', formatter: '.formatter.getRatingText'}" />
+										<!-- <Text text="{path:'perfrating', formatter: '.formatter.getRatingText'}"></Text> -->
+                                        <!-- <Text text="{paypercent}"></Text> -->
+                                        <ProgressIndicator percentValue="{paypercent}" displayValue="{paypercent}%" showValue="true" state="None" />
+					                    <!-- <ObjectNumber number="{paypercent}"	unit="%" state="None"/>                                         -->
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+        </VBox>
+		</semantic:content>
+		<!-- <semantic:messagesIndicator>
+			<semantic:MessagesIndicator id="messageBtn" press="onMessagesButtonPress"/>
+		</semantic:messagesIndicator> -->
+		<semantic:footerMainAction >
+            <!-- <semantic:FooterMainAction id="editSubmit" text="{i18n>sendForApproval}" press="onSubmitForApproval" enabled="false"/> -->
+			<!-- <semantic:FooterMainAction id="editAction" text="{i18n>submitAll}" press="onSubmit" enabled="false" visible="false"/> -->
+		</semantic:footerMainAction>
+		
+	</semantic:SemanticPage>    
+    <c:Fragment fragmentName="defcomp.vesting.ui.view.fragment.main" type="XML"></c:Fragment>
+</mvc:View>
