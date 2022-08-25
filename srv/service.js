@@ -38,8 +38,8 @@ module.exports = cds.service.impl(async (service) => {
     const _getPayPercentByRating = (sRating)=>{
         var iPayPercent = 0;
         for(let i=0; i<aRatingPercent.length; i++){
-            if(parseInt(sRating)==parseInt(aRatingPercent[i].perfrating)){
-                iPayPercent = aRatingPercent[i].paypercent; break;
+            if(parseInt(sRating)==parseInt(aRatingPercent[i].PERFRATING)){
+                iPayPercent = aRatingPercent[i].PAYPERCENT; break;
             }
         }
         return iPayPercent;
@@ -146,7 +146,7 @@ module.exports = cds.service.impl(async (service) => {
             for(let i=0; i<aAssignedYears.length; i++){
                 aCalculatedData.push(JSON.parse(JSON.stringify(oCalcData[aAssignedYears[i]])));
             }
-            // console.log(JSON.stringify(aCalculatedData));  
+            console.log(JSON.stringify(aCalculatedData));  
             let aWorkSheet = odata.d.results[0].cust_Comp_Worksheet.results;
             for(let i=0; i<aWorkSheet.length; i++){
                 for(let j=0; j<aCalculatedData.length; j++){
@@ -167,10 +167,10 @@ module.exports = cds.service.impl(async (service) => {
                 delete aWorkSheet[i].mdfSystemRecordStatus, delete aWorkSheet[i].createdBy;                
             }
             odata.d.results[0].cust_Comp_Worksheet = odata.d.results[0].cust_Comp_Worksheet.results;
-            console.log(odata.d.results[0]);
+            console.log(JSON.stringify(odata.d.results[0]));
             // debugger;
             const oUpsertResponse = await axios({ method:'POST', baseURL: sHostUrl, url:'/odata/v2/upsert', headers:objHeaders, data:odata.d.results[0]})
-            console.log(oUpsertResponse.data.d);
+            console.log(JSON.stringify(oUpsertResponse.data.d));
 
             // var oClacModel = new JSONModel({ "Calculated": aCalculatedData});
             // that.getView().setModel(oClacModel, "sfLTIC");  
