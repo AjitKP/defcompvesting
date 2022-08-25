@@ -1,0 +1,32 @@
+@protocol = http
+# @protocol = https
+@host = localhost:4004
+# @host = 79dc7fe9trial-dev-mm-contracts-srv.cfapps.us10.hana.ondemand.com
+@port = 4004
+
+
+POST {{protocol}}://{{host}}/v2/DCVService/Odata/updateLTIbyEmp
+Accept: application/json
+Content-Type: application/json
+
+{ 
+  "empid": "802981"
+}
+
+###New
+
+POST {{protocol}}://{{host}}/v2/DCVService/Odata/VestingDetails
+Accept: application/json
+Content-Type: application/json
+
+{
+    "rolecode": "GR-11",
+    "rolename": "Salary Grade 11",
+    "perfrating": 5,
+    "paypercent": 100
+}
+
+### get
+GET {{protocol}}://{{host}}/v2/DCVService/Odata/VestingDetails
+Accept: application/json
+Content-Type: application/json

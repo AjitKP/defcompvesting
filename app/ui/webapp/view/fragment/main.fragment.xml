@@ -40,7 +40,7 @@
                                     </Select>  
                                 </l:fields>
                                 <l:label>
-                                    <Label id="idLabelRoleCode" class="VerticalMargin" required="true" text="Employee Role"></Label>
+                                    <Label id="idLabelRoleCode" class="VerticalMargin" required="true" text="Pay Grade"></Label>
                                 </l:label>
                             </l:FormElement>
                             <l:FormElement >

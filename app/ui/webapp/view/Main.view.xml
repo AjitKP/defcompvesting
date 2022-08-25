@@ -21,17 +21,17 @@
 		</semantic:headerContent>
 		<semantic:content>
         <VBox>
-						<Table id="idVLTable" noDataText="{i18n>noProducts}" class="sapUiSizeCompact" items="{/VestingDetails}" mode="SingleSelectLeft">
+						<Table id="idVLTable" noDataText="{i18n>noProducts}" class="sapUiSmallMargin" items="{/VestingDetails}" mode="SingleSelectLeft">
 							<columns>
 								<!--sap.m.Column-->
 								<Column visible="false">
 									<Text text="GUID"/>
 								</Column>                                   
 								<Column>
-									<Text text="Role Id"/>
+									<Text text="Pay Grade Id"/>
 								</Column>                                
 								<Column>
-									<Text text="Role"/>
+									<Text text="Pay Grade"/>
 								</Column>
 								<Column>
 									<Text text="Rating"/>
@@ -65,7 +65,7 @@
                                         <RatingIndicator editable="false" maxValue="5" value="{perfrating}" iconSize="16px" tooltip="{path:'perfrating', formatter: '.formatter.getRatingText'}" />
 										<!-- <Text text="{path:'perfrating', formatter: '.formatter.getRatingText'}"></Text> -->
                                         <!-- <Text text="{paypercent}"></Text> -->
-                                        <ProgressIndicator percentValue="{paypercent}" displayValue="{paypercent}%" showValue="true" state="None" />
+                                        <ProgressIndicator percentValue="{paypercent}" displayValue="{paypercent}%" showValue="true" state="Information" />
 					                    <!-- <ObjectNumber number="{paypercent}"	unit="%" state="None"/>                                         -->
 									</cells>
 								</ColumnListItem>

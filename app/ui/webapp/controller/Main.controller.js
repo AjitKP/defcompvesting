@@ -39,9 +39,35 @@ sap.ui.define([
                     }                   
                 })
             },
+            _getPayGrade: function(){
+                var that = this;
+                $.ajax({
+                    url: "/defcompvestingui/SFSALES008130_SRV/FOPayGrade",
+                    method: "GET",
+                    contentType: "application/json",
+                    headers: { "Accept": "application/json" },
+                    async: false, 
+                    error: function (error, jQXHR) {
+                        console.log(error);
+                      },                    
+                    success: function (odata, jQXHR, status) {
+                        console.log(odata);
+                        console.log(that);
+                        var oPayGrade={}, aPayGrade=[];
+                        for(let i=0; i<odata.d.results.length; i++){
+                            oPayGrade.externalCode = odata.d.results[i].externalCode;
+                            oPayGrade.name_localized = odata.d.results[i].name;
+                            aPayGrade.push({...oPayGrade});                            
+                        }
+                        var oModel = new JSONModel({"EmpRoles":aPayGrade});
+                        that.getView().setModel(oModel, "sfEmpRole");
+                    }                   
+                })
+            },            
             onInit: function () {
                 this.appModulePath = this._getRegisterdAppModule();
-                this._getEmpRole();
+                // this._getEmpRole();
+                this._getPayGrade();
                 this.oDialog = this.getView().byId("idCreateMainDialog");
                 this.sAction = "";    
             },
