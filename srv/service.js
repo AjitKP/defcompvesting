@@ -1,3 +1,4 @@
+/* eslint-disable use-isnan */
 const cds = require("@sap/cds");
 const axios = require('axios');
 
@@ -10,6 +11,7 @@ module.exports = cds.service.impl(async (service) => {
       ];
 
     const _convertJSONDateToString = (sInput)=>{
+        if(sInput==null || sInput.length<5){ return; }
         let aDateParts = sInput.split('(')[1].split(')')[0].split('+');
         let dOutput = new Date(parseInt(aDateParts[0]));
         let sDate = ('0'+dOutput.getDate()+'.').slice(-3) + ('0'+(dOutput.getMonth()+1)+'.').slice(-3) + ('0'+dOutput.getFullYear()).slice(-4);
@@ -45,7 +47,7 @@ module.exports = cds.service.impl(async (service) => {
         return iPayPercent;
     };
     const _addYearsToDate = (sDate, iCnt)=>{
-        if(sDate.length<10){
+        if(sDate==null || sDate==undefined || sDate.length<10){
             return 'NA';
         }else{
             return sDate.substring(0,6)+(parseInt(sDate.slice(-4))+iCnt) 
@@ -65,7 +67,7 @@ module.exports = cds.service.impl(async (service) => {
         objHeaders["Content-Type"] = "application/json";
         objHeaders["Accept"] = "application/json";
         objHeaders["authorization"] = sAuthorization;        
-        console.log(objHeaders);
+        // console.log(objHeaders);
         try {
             const oSfEJobResponse = await axios({ method:'GET', baseURL:sHostUrl, url:sEmpJobUrl, headers:objHeaders});
             sPayGrade = oSfEJobResponse.data.d.results[0].payGrade;
@@ -146,9 +148,13 @@ module.exports = cds.service.impl(async (service) => {
             for(let i=0; i<aAssignedYears.length; i++){
                 aCalculatedData.push(JSON.parse(JSON.stringify(oCalcData[aAssignedYears[i]])));
             }
-            console.log(JSON.stringify(aCalculatedData));  
-            let aWorkSheet = odata.d.results[0].cust_Comp_Worksheet.results;
+            // console.log(JSON.stringify(aCalculatedData));  
+            let aWorkSheet = odata.d.results[0].cust_Comp_Worksheet.results, bUpdate=false;
             for(let i=0; i<aWorkSheet.length; i++){
+                if(aWorkSheet[i].cust_Demo_Field==null || parseInt(aWorkSheet[i].cust_Demo_Field)==NaN || parseInt(aWorkSheet[i].cust_Demo_Field)==0){
+                    bUpdate = true;
+                    console.log('Data will be updated to Successfactors');
+                }
                 for(let j=0; j<aCalculatedData.length; j++){
                     if(parseInt(aWorkSheet[i].cust_Financial_Year)==parseInt(aCalculatedData[j].year)){
                         aWorkSheet[i].cust_Demo_Field       = aCalculatedData[j].GrantedAmount.toString();
@@ -169,8 +175,12 @@ module.exports = cds.service.impl(async (service) => {
             odata.d.results[0].cust_Comp_Worksheet = odata.d.results[0].cust_Comp_Worksheet.results;
             console.log(JSON.stringify(odata.d.results[0]));
             // debugger;
-            const oUpsertResponse = await axios({ method:'POST', baseURL: sHostUrl, url:'/odata/v2/upsert', headers:objHeaders, data:odata.d.results[0]})
-            console.log(JSON.stringify(oUpsertResponse.data.d));
+            if(bUpdate == true){
+                const oUpsertResponse = await axios({ method:'POST', baseURL: sHostUrl, url:'/odata/v2/upsert', headers:objHeaders, data:odata.d.results[0]})
+                console.log(JSON.stringify(oUpsertResponse.data.d));
+            }else{
+                console.log('Data will NOT be updated to Successfactors');
+            }
 
             // var oClacModel = new JSONModel({ "Calculated": aCalculatedData});
             // that.getView().setModel(oClacModel, "sfLTIC");  
